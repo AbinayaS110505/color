@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker for Shapes</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fcffff;
+            color: white;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #c2ebfd;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .shapes-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .shape {
+            width: 80px;
+            height: 80px;
+            border: 2px solid white;
+            margin: 10px;
+        }
+
+        .circle {
+            border-radius: 50%;
+        }
+
+        .heart {
+            width: 80px;
+            height: 80px;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%,
+                    74% 58%, 82% 91%, 50% 75%,
+                    18% 91%, 26% 58%, 2% 35%,
+                    39% 35%);
+            background-color: transparent;
+            border: 2px solid white;
+            margin: 10px;
+        }
+
+
+        .star {
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .square {
+            border: none;
+        }
+button {
+  padding: 17px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  background-color: white;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: hsl(182, 79%, 50%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: hsl(182, 79%, 50%) 0px 7px 29px 0px;
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(182, 79%, 50%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(80, 243, 229) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+
+        @media (max-width: 600px) {
+
+            .shapes-container,
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .color-button {
+                width: 100%;
+                max-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="shapes-container">
+            <div class="shape circle" id="circle"></div>
+            <div class="shape heart" id="heart"></div>
+            <div class="shape star" id="star"></div>
+            <div class="shape square" id="square"></div>
+        </div>
+        <div class="buttons-container">
+            <button class="button" onclick="chooseColor('circle')">Color</button>
+            <button class="button" onclick="chooseColor('heart')">Color</button>
+            <button class="button" onclick="chooseColor('star')">Color</button>
+            <button class="button" onclick="chooseColor('square')">Color</button>
+        </div>
+    </div>
+
+    <script>
+        function chooseColor(shape) {
+            const color = prompt("Enter a color (e.g., red, #ff0000, rgb(255,0,0)):");
+            if (color) {
+                document.getElementById(shape).style.backgroundColor = color;
+                localStorage.setItem(shape, color);
+            }
+        }
+        window.onload = function () {
+            const shapes = ['circle', 'heart', 'star', 'square'];
+            shapes.forEach(shape => {
+                const color = localStorage.getItem(shape);
+                if (color) {
+                    document.getElementById(shape).style.backgroundColor = color;
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
